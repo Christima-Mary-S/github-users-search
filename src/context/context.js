@@ -27,6 +27,18 @@ const GithubProvider = ({ children }) => {
     );
     if (response) {
       setGithubUser(response.data);
+      const { login, followers_url } = response.data;
+      axios(`${rootUrl}/users/${login}/repos?per_page=100`).then((res) =>
+        setGithuRepos(res.data)
+      );
+
+      axios(`${followers_url}?per_page=100`).then((res) =>
+        setGithubFollowers(res.data)
+      );
+
+      // https://api.github.com/users/john-smilga/repos?per_page=100
+
+      // https://api.github.com/users/john-smilga/followers
     } else {
       toggleError(true, "username does not exist");
     }
