@@ -14,13 +14,14 @@ const GithubProvider = ({ children }) => {
   const [githubFollowers, setGithubFollowers] = useState(mockFollowers);
   // request , loading
   const [request, setRequest] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({ show: false, message: "" });
 
   const searchGithubUser = async (user) => {
     // console.log(user);
     toggleError();
     // set loading
+    setIsLoading(true);
     const response = await axios(`${rootUrl}/users/${user}`).catch((err) =>
       console.log(err)
     );
@@ -29,6 +30,8 @@ const GithubProvider = ({ children }) => {
     } else {
       toggleError(true, "username does not exist");
     }
+    checkRequest();
+    setIsLoading(false);
   };
 
   const checkRequest = () => {
@@ -59,6 +62,8 @@ const GithubProvider = ({ children }) => {
         request,
         error,
         searchGithubUser,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}
