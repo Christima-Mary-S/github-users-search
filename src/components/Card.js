@@ -30,7 +30,7 @@ const Card = () => {
           <MdBusiness /> {company || "no company informaton provided"}
         </p>
         <p>
-          <MdLocationOn /> {location || "no location onformation provided"}
+          <MdLocationOn /> {location || "no location information provided"}
         </p>
         <a href={blog || "google.com"}>
           <MdLink />
